@@ -1,3 +1,4 @@
+
 name: Build Android APK
 
 on:
@@ -7,25 +8,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     steps:
     - name: 🧾 Klona källkod
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: ⚙️ Installera beroenden
       run: |
         sudo apt update
-        sudo apt install -y build-essential git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel
+        sudo apt install -y build-essential git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel curl
         pip install --user buildozer cython
 
-    - name: ☑️ Installera rätt Android Build Tools
+    - name: ☑️ Installera Android SDK + Build Tools 33.0.2
       run: |
-        yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-        $ANDROID_HOME/tools/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
-
-    - name: 🏗️ Bygg APK med Buildozer
-      run: |
-        export PATH=$HOME/.local/bin:$PATH
-        buildozer android debug
+        mkdir -p $HOME/.android/cmdline-tools
+        cd $HOME/.android/cmdline-tools
+        curl -O https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip
+        unzip commandlinetools-linux-8512546_latest.zip
+        rm commandlinetools-linux-8512546_latest.zip
+        mv cmdline-tools latest
+        yes | $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android "platforms;android-33" "build-tools;33.0.2" --licenses
 
     - name: 🏗️ Bygg APK med Buildozer
       run: |
