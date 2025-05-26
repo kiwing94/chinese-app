@@ -1,4 +1,3 @@
-
 name: Build Android APK
 
 on:
@@ -28,7 +27,8 @@ jobs:
         unzip commandlinetools-linux-8512546_latest.zip
         rm commandlinetools-linux-8512546_latest.zip
         mv cmdline-tools latest
-        yes | $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android "platforms;android-33" "build-tools;33.0.2" --licenses
+        $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android "platforms;android-33" "build-tools;33.0.2"
+        yes | $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android --licenses
 
     - name: 🏗️ Bygg APK med Buildozer
       run: |
