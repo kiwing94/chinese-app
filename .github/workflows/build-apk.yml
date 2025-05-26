@@ -17,6 +17,16 @@ jobs:
         sudo apt install -y build-essential git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel
         pip install --user buildozer cython
 
+    - name: ☑️ Installera rätt Android Build Tools
+      run: |
+        yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+        $ANDROID_HOME/tools/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
+
+    - name: 🏗️ Bygg APK med Buildozer
+      run: |
+        export PATH=$HOME/.local/bin:$PATH
+        buildozer android debug
+
     - name: 🏗️ Bygg APK med Buildozer
       run: |
         export PATH=$HOME/.local/bin:$PATH
