@@ -13,12 +13,6 @@ osx.python_version = 3
 android.permissions = INTERNET
 android.pip_extra_args = --break-system-packages
 android.sdk = 33
-android.ndk = 25b
-android.api = 33
-android.minapi = 21
-android.sdk = 33
-android.api = 33
-android.ndk = 25b
 android.build_tools = 33.0.2
 
 [buildozer]
