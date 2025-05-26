@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🧾 Klona källkod
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: ⚙️ Installera beroenden
       run: |
@@ -23,7 +23,7 @@ jobs:
         buildozer android debug
 
     - name: 📦 Ladda upp APK som artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: flashcard-app-debug
         path: bin/*.apk
