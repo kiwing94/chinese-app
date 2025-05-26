@@ -30,9 +30,13 @@ jobs:
         $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android "platforms;android-33" "build-tools;33.0.2"
         yes | $HOME/.android/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.android --licenses
 
+    - name: 🧩 Skapa local.properties för att tvinga SDK-stig
+      run: echo "sdk.dir=$HOME/.android" > local.properties
+
     - name: 🏗️ Bygg APK med Buildozer
       run: |
         export PATH=$HOME/.local/bin:$PATH
+        export ANDROIDSDK=$HOME/.android
         buildozer android debug
 
     - name: 📦 Ladda upp APK som artifact
